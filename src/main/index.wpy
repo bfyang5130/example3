@@ -1,0 +1,95 @@
+<style lang="less">
+    .navbar {
+        .page,
+        .page__bd{
+            height: 100%;
+        }
+        .page__bd{
+            padding-bottom: 0;
+        }
+        .weui-tab__content{
+            padding-top: 60px;
+            text-align: center;
+        }
+    }
+</style>
+<template>
+    <view class="navbar page">
+        <view class="page__bd">
+            <view class="weui-tab">
+                <view class="weui-navbar">
+                    <view wx:for="{{tabs}}" wx:key="*this" id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                    <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                </view>
+                <view class="weui-tab__panel">
+                    <view class="" hidden="{{activeIndex != 0}}">
+                        <view class="weui-cells weui-cells_after-title">
+                            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <image src="../images/1.jpg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                </view>
+                                <view class="weui-cell__bd">萃雅柔润眼霜</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access">播放</view>
+                            </navigator>
+                            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <image src="../images/2.jpg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                </view>
+                                <view class="weui-cell__bd">萃雅透亮洁面乳</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access">播放</view>
+                            </navigator>
+                        </view>
+                    </view>
+                    <view class="" hidden="{{activeIndex != 1}}">
+                        <view class="weui-cells weui-cells_after-title">
+                            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <image src="../images/1.jpg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                </view>
+                                <view class="weui-cell__bd">萃雅柔润眼霜1</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access">播放</view>
+                            </navigator>
+                            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <image src="../images/2.jpg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                                </view>
+                                <view class="weui-cell__bd">萃雅透亮洁面乳1</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access">播放</view>
+                            </navigator>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy';
+    const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+    export default class Index extends wepy.page {
+
+        data = {
+            tabs: ['官方资源', '用户资源'],
+            activeIndex: 1,
+            sliderOffset: 0,
+            sliderLeft: 0,
+            icon: {}
+        };
+        methods = {
+            tabClick (e) {
+                this.sliderOffset = e.currentTarget.offsetLeft;
+                this.activeIndex = e.currentTarget.id;
+            }
+        }
+        async onLoad () {
+            this.icon = require('../images/base64.js').icon20;
+            let res = await wepy.getSystemInfo();
+
+            this.sliderLeft = (res.windowWidth / this.tabs.length - sliderWidth) / 2;
+            this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex;
+        }
+    }
+</script>

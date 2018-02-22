@@ -45,6 +45,7 @@ export default class extends wepy.app {
     config = {
         'pages': [
             'example/index',
+            'main/index',
             'example/button',
             'example/list',
             'example/input',
@@ -78,7 +79,7 @@ export default class extends wepy.app {
         ],
         'window': {
             'navigationBarTextStyle': 'black',
-            'navigationBarTitleText': 'WeUI in WePY',
+            'navigationBarTitleText': '杂货店',
             'navigationBarBackgroundColor': '#f8f8f8',
             'backgroundColor': '#f8f8f8'
         },
